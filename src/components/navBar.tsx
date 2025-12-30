@@ -1,6 +1,11 @@
 import {AppBar, Box, Toolbar, Typography} from "@mui/material";
+import {useNavigate} from "react-router";
+import ThemeButton from "../features/themeButton.tsx";
 
 const NavBar = () => {
+
+    const navigate = useNavigate()
+
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>
@@ -13,6 +18,7 @@ const NavBar = () => {
                         <Typography
                             variant="h6"
                             noWrap
+                            onClick={() => navigate('/')}
                             sx={{
                                 mr: 2,
                                 mb: 3,
@@ -22,10 +28,16 @@ const NavBar = () => {
                                 letterSpacing: '.3rem',
                                 color: 'inherit',
                                 textDecoration: 'none',
-                            }}
-                        >
-                            zalupa
+                                cursor: 'pointer'
+                        }}
+                            >
+                                eagle
                         </Typography>
+
+                        <Box sx={{ marginLeft: 'auto', mb: 3 }}>
+                            <ThemeButton />
+                        </Box>
+
                     </Toolbar>
                 </AppBar>
             </Box>

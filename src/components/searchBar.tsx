@@ -7,6 +7,8 @@ type SearchBarProps = {
 };
 
  const SearchBar = ({ value, onChange, onSubmit }: SearchBarProps) => {
+
+
     return (
         <Box
             sx={{
@@ -26,10 +28,10 @@ type SearchBarProps = {
                 onKeyDown={(e) => e.key === 'Enter' && onSubmit()}
                 variant="outlined"
                 sx={{
-                    height: 64,
+                    height: 54,
                     borderRadius: 0,
                     '& fieldset': { border: 'none' },
-                    fontSize: 18,
+                    fontSize: 13,
                     paddingLeft: 2,
                 }}
             />
@@ -40,7 +42,7 @@ type SearchBarProps = {
                 sx={{
                     width: 140,
                     borderRadius: 0,
-                    fontSize: 18,
+                    fontSize: 15,
                     textTransform: 'none',
                     backgroundColor: '#4da3ff',
                     '&:hover': {

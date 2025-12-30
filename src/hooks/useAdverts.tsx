@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import {getAdvs} from "../api/api.ts";
+import {type GetAdvertsParams, getAdvs} from "../api/api.ts";
 import type {Advert, Pagination} from "../../types/advert.ts";
 
 interface ApiResponse {
@@ -7,26 +7,27 @@ interface ApiResponse {
     pagination:Pagination
 }
 
-type Params = {
-    page?: number
-    limit?: number
-    search?:string
-}
 
-export const useAdverts = (params?: Params) => {
+export const useAdverts = (params?: GetAdvertsParams) => {
 
     const {
         page = 1,
         limit = 10,
         search = '',
+        status = [],
+        categoryId = 0,
+        sortBy = '',
+        maxPrice = '',
+        minPrice = '',
+        sortOrder ='',
     } = params ?? {};
 
 
     return useQuery<ApiResponse>({
-        queryFn: () => getAdvs({page, limit, search}),
-        queryKey: ['ads', page, limit, search],
+        queryFn: () => getAdvs(params ?? {}),
+        queryKey: ['ads', page, limit, search, status, categoryId,sortBy,sortOrder, maxPrice, minPrice ],
 
     })
 
-};
+}
 

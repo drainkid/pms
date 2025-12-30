@@ -1,16 +1,32 @@
-import {useAdverts} from "../hooks/useAdverts.tsx";
 import {CircularProgress, Grid, Typography} from "@mui/material";
 import AdvCard from "../components/advCard.tsx";
+import type {Advert} from "../../types/advert.ts";
+import type {FC} from "react";
+
+interface AdsResponse {
+    ads: Advert[];
+    pagination?: {
+        currentPage: number;
+        itemsPerPage: number;
+        totalItems: number;
+        totalPages: number;
+    };
+}
+
+interface AdvListProps {
+    data?: AdsResponse;
+    isLoading: boolean;
+    error: Error | null;
+}
+
+const AdvList: FC<AdvListProps> = ({ data, isLoading, error }) => {
 
 
-const AdvList = ({page, search}: {page?:number, search?:string}) => {
-
-    const {data, isLoading, error} = useAdverts({page, search})
 
     if (isLoading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem', color:'black' }} >
-                <CircularProgress sx = {{color:'black'}} />
+                <CircularProgress sx = {(localStorage.getItem('mui-mode') ==='light') ? {color:'black'} : {color: 'white'}} />
             </div>
         );
     }
@@ -26,6 +42,7 @@ const AdvList = ({page, search}: {page?:number, search?:string}) => {
     }
 
     return (
+        <>
             <Grid container spacing={2}
                   m={3}
                   sx = {{justifyContent: 'center'}}
@@ -34,6 +51,7 @@ const AdvList = ({page, search}: {page?:number, search?:string}) => {
                     <AdvCard advert={elem} key = {elem.id}/>
                 ))}
             </Grid>
+        </>
     );
 };
 
