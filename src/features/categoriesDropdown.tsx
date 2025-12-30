@@ -17,18 +17,18 @@ import {
     Stack,
     TextField,
     Typography
-} from '@mui/material';
-import {useSearchParams} from "react-router";
+} from '@mui/material'
+import {useSearchParams} from "react-router"
 
-const STATUS_MAPPING = {
+const status_map = {
     'Одобрено': 'approved',
     'Отклонено': 'rejected',
     'На модерации': 'pending'
-} as const;
+} as const
 
-type StatusKey = keyof typeof STATUS_MAPPING;
+type StatusKey = keyof typeof status_map
 
-const STATUSES = Object.keys(STATUS_MAPPING) as StatusKey[];
+const STATUSES = Object.keys(status_map) as StatusKey[];
 
 
 
@@ -52,27 +52,27 @@ export const CategoriesDropdown = () => {
     };
 
     const handleApplyFilters = () => {
-        const params: Record<string, string> = {};
-        
+        const params: Record<string, string> = {}
+
         if (selectedStatuses.length > 0) {
-            params.status = selectedStatuses.join(',');
+            params.status = selectedStatuses.join(',')
         }
         if (category) {
-            params.categoryId = category;
+            params.categoryId = category
         }
         if (priceRange.min) {
-            params.minPrice = priceRange.min;
+            params.minPrice = priceRange.min
         }
         if (priceRange.max) {
-            params.maxPrice = priceRange.max;
+            params.maxPrice = priceRange.max
         }
         if (sortBy) {
-            params.sortBy = sortBy;
+            params.sortBy = sortBy
         }
         if (sortOrder) {
-            params.sortOrder = sortOrder;
+            params.sortOrder = sortOrder
         }
-        
+
         setSearchParams(params);
         setAnchorEl(null);
     }
@@ -80,34 +80,21 @@ export const CategoriesDropdown = () => {
     const handlePriceChange = (field: 'min' | 'max', value: string) => {
         // Проверяем, что вводится число или пустое значение (для сброса лимита)
         if (value === '' || /^\d+$/.test(value)) {
-            setPriceRange(prev => ({...prev, [field]: value}));
+            setPriceRange(prev => ({...prev, [field]: value}))
         }
     }
 
     const handleReset = () => {
-        setSelectedStatuses([]);
-        setCategory('');
+        setSelectedStatuses([])
+        setCategory('')
         setPriceRange({min: '', max: ''})
-        setSortBy('newest');
+        setSortBy('newest')
     }
 
-    const handleSortChange = (e:ChangeEvent<HTMLInputElement>) => {
-
-        setSortBy(e.target.value)
-
-        if (sortBy === 'newest') {
-            setSortOrder('desc')
-        }
-        else if (sortBy === 'oldest') {
-            setSortOrder('asc')
-        }
-        else if (sortBy === 'price_asc') {
-            setSortOrder('asc')
-        }
-        else if (sortBy === 'price_desc') {
-            setSortOrder('desc')
-        }
-
+    const handleSortChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const [field, order] = e.target.value.split(':');
+        setSortBy(field);
+        setSortOrder(order as 'asc' | 'desc');
     }
 
     return (
@@ -153,7 +140,7 @@ export const CategoriesDropdown = () => {
                             input={<OutlinedInput label="Статус" />}
                             renderValue={(selected) => {
                                 const getRussianName = (engValue: string) => {
-                                    const found = Object.entries(STATUS_MAPPING).find(([, value]) => value === engValue);
+                                    const found = Object.entries(status_map).find(([, value]) => value === engValue);
                                     return found ? found[0] : engValue;
                                 };
                                 return Array.isArray(selected)
@@ -162,12 +149,12 @@ export const CategoriesDropdown = () => {
                             }}
                         >
                             {STATUSES.map((status) => (
-                                <MenuItem key={status} value={STATUS_MAPPING[status]}>
-                                    <Checkbox checked={selectedStatuses.indexOf(STATUS_MAPPING[status]) > -1} />
+                                <MenuItem key={status} value={status_map[status]}>
+                                    <Checkbox checked={selectedStatuses.indexOf(status_map[status]) > -1} />
                                     <ListItemText primary={status} />
                                 </MenuItem>
                             ))}
-                        </Select>   
+                        </Select>
                     </FormControl>
 
                     {/* Фильтр по категории */}
@@ -214,12 +201,27 @@ export const CategoriesDropdown = () => {
                         <Typography variant="subtitle2" fontWeight={600} mb={1}>
                             Сортировка
                         </Typography>
-                        <RadioGroup value={sortBy} onChange={handleSortChange}>
-                            <FormControlLabel value="newest" control={<Radio size="small" />} label="Сначала новые" />
-                            <FormControlLabel value="oldest" control={<Radio size="small" />} label="Сначала старые" />
-                            <FormControlLabel value="price_desc" control={<Radio size="small" />} label="Дешевле" />
-                            <FormControlLabel value="price_asc" control={<Radio size="small" />} label="Дороже" />
-                            <FormControlLabel value="priority" control={<Radio size="small" />} label="По приоритету" />
+                        <RadioGroup value={`${sortBy}:${sortOrder}`} onChange={handleSortChange}>
+                            <FormControlLabel
+                                value="createdAt:desc"
+                                control={<Radio size="small" />}
+                                label="Сначала новые"
+                            />
+                            <FormControlLabel
+                                value="createdAt:asc"
+                                control={<Radio size="small" />}
+                                label="Сначала старые"
+                            />
+                            <FormControlLabel
+                                value="price:asc"
+                                control={<Radio size="small" />}
+                                label="Дешевле"
+                            />
+                            <FormControlLabel
+                                value="price:desc"
+                                control={<Radio size="small" />}
+                                label="Дороже"
+                            />
                         </RadioGroup>
                     </Box>
 
