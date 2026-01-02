@@ -17,8 +17,8 @@ const MainPage = () => {
     const [searchParams, setSearchParams] = useSearchParams()
 
     const filters = useMemo(() => {
-        return Object.fromEntries(searchParams);
-    }, [searchParams]);
+        return Object.fromEntries(searchParams)
+    }, [searchParams])
 
 
     const {data, isLoading, error} = useAdverts(
@@ -32,11 +32,11 @@ const MainPage = () => {
     }
 
     const handleSearch = () => {
-        setPage(1);
-        setSearchValue(search);
-        const newSearchParams = new URLSearchParams(searchParams);
-        newSearchParams.set('search', search);
-        setSearchParams(newSearchParams);
+        setPage(1)
+        setSearchValue(search)
+        const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set('search', search)
+        setSearchParams(newSearchParams)
     }
 
     return (
@@ -52,12 +52,11 @@ const MainPage = () => {
                 <CategoriesDropdown/>
                 <SearchBar value={search} onChange={setSearch} onSubmit={handleSearch}/>
             </Box>
+
             <AdvList
                 data = {data}
                 isLoading = {isLoading}
                 error = {error}
-
-
             />
 
             <Box component={'div'}

@@ -28,27 +28,27 @@ const status_map = {
 
 type StatusKey = keyof typeof status_map
 
-const STATUSES = Object.keys(status_map) as StatusKey[];
+const STATUSES = Object.keys(status_map) as StatusKey[]
 
 
 
 export const CategoriesDropdown = () => {
-    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+    const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
 
     const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
     const [category, setCategory] = useState('')
-    const [priceRange, setPriceRange] = useState<{min: string, max: string}>({min: '', max: ''});
+    const [priceRange, setPriceRange] = useState<{min: string, max: string}>({min: '', max: ''})
     const [sortBy, setSortBy] = useState('newest')
     const [sortOrder, setSortOrder] = useState('desc')
+    const open = Boolean(anchorEl)
 
-    const open = Boolean(anchorEl);
     const handleOpen = (event: MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget)
 
-    const [, setSearchParams] = useSearchParams();
+    const [, setSearchParams] = useSearchParams()
 
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
     };
 
     const handleApplyFilters = () => {
@@ -73,8 +73,8 @@ export const CategoriesDropdown = () => {
             params.sortOrder = sortOrder
         }
 
-        setSearchParams(params);
-        setAnchorEl(null);
+        setSearchParams(params)
+        setAnchorEl(null)
     }
 
     const handlePriceChange = (field: 'min' | 'max', value: string) => {
@@ -92,7 +92,7 @@ export const CategoriesDropdown = () => {
     }
 
     const handleSortChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const [field, order] = e.target.value.split(':');
+        const [field, order] = e.target.value.split(':')
         setSortBy(field);
         setSortOrder(order as 'asc' | 'desc');
     }
@@ -137,15 +137,17 @@ export const CategoriesDropdown = () => {
                             onChange={
                             (e) =>
                                 setSelectedStatuses(typeof e.target.value === 'string' ? e.target.value.split(',') : e.target.value)}
+
                             input={<OutlinedInput label="Статус" />}
+
                             renderValue={(selected) => {
                                 const getRussianName = (engValue: string) => {
-                                    const found = Object.entries(status_map).find(([, value]) => value === engValue);
-                                    return found ? found[0] : engValue;
+                                    const found = Object.entries(status_map).find(([, value]) => value === engValue)
+                                    return found ? found[0] : engValue
                                 };
                                 return Array.isArray(selected)
                                     ? selected.map(s => getRussianName(s)).join(', ')
-                                    : getRussianName(selected);
+                                    : getRussianName(selected)
                             }}
                         >
                             {STATUSES.map((status) => (
@@ -227,7 +229,6 @@ export const CategoriesDropdown = () => {
 
                     {/* Кнопки действий */}
                     <Stack direction="row" spacing={2} pt={1}>
-
                         <Button
                             fullWidth
                             variant="outlined"
@@ -246,8 +247,8 @@ export const CategoriesDropdown = () => {
                         >
                             Применить
                         </Button>
-
                     </Stack>
+
                 </Stack>
             </Popover>
         </>

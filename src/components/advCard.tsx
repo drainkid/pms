@@ -1,9 +1,10 @@
 import {Box, Card, CardContent, CardMedia, Chip, type ChipProps, Stack, Typography,} from "@mui/material";
 import type {Advert} from "../../types/advert.ts";
+import {useNavigate} from "react-router";
 
 type Props = {
-    advert: Advert;
-};
+    advert: Advert
+}
 
 
 const AdvCard = ({advert} : Props )=> {
@@ -24,10 +25,11 @@ const AdvCard = ({advert} : Props )=> {
         rejected: { label: 'Отклонено', color: 'error' },
     };
 
+    const navigate = useNavigate()
 
 
     return (
-        <Card sx={{ width: 320 }}>
+        <Card sx={{ width: 320, cursor: 'pointer' }} onClick={() => navigate(`item/${advert.id}`)}>
             {/* IMAGE */}
             <CardMedia
                 component="img"

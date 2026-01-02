@@ -8,7 +8,6 @@ type SearchBarProps = {
 
  const SearchBar = ({ value, onChange, onSubmit }: SearchBarProps) => {
 
-
     return (
         <Box
             sx={{

@@ -1,25 +1,25 @@
 import {CircularProgress, Grid, Typography} from "@mui/material";
 import AdvCard from "../components/advCard.tsx";
 import type {Advert} from "../../types/advert.ts";
-import type {FC} from "react";
+import {type FC, memo} from "react";
 
 interface AdsResponse {
-    ads: Advert[];
+    ads: Advert[]
     pagination?: {
-        currentPage: number;
-        itemsPerPage: number;
-        totalItems: number;
-        totalPages: number;
-    };
+        currentPage: number
+        itemsPerPage: number
+        totalItems: number
+        totalPages: number
+    }
 }
 
 interface AdvListProps {
-    data?: AdsResponse;
-    isLoading: boolean;
-    error: Error | null;
+    data?: AdsResponse
+    isLoading: boolean
+    error: Error | null
 }
 
-const AdvList: FC<AdvListProps> = ({ data, isLoading, error }) => {
+const AdvList: FC<AdvListProps> = memo(({ data, isLoading, error }) => {
 
 
 
@@ -48,11 +48,14 @@ const AdvList: FC<AdvListProps> = ({ data, isLoading, error }) => {
                   sx = {{justifyContent: 'center'}}
             >
                 {data?.ads?.map((elem) => (
-                    <AdvCard advert={elem} key = {elem.id}/>
+                    <AdvCard
+                        advert={elem}
+                        key = {elem.id}
+                    />
                 ))}
             </Grid>
         </>
-    );
-};
+    )
+})
 
 export default AdvList;
