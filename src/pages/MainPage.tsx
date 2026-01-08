@@ -21,11 +21,7 @@ const MainPage = () => {
     }, [searchParams])
 
 
-    const {data, isLoading, error} = useAdverts(
-        {page,
-            search: searchValue,
-        ...filters
-    })
+    const {data, isLoading, error} = useAdverts({page, search: searchValue, ...filters})
 
     const changePage = (_event: ChangeEvent<unknown>, value: number) => {
         setPage(value)

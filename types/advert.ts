@@ -1,5 +1,5 @@
 // types/advert.ts
-export type AdvertStatus = 'pending' | 'approved' | 'rejected';
+export type AdvertStatus = 'pending' | 'approved' | 'rejected' | 'draft';
 export type AdvertPriority = 'normal' | 'urgent';
 
 export interface Advert {

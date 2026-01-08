@@ -14,7 +14,7 @@ const App = () => {
         colorSchemes: {
             dark: true,
         },
-    });
+    })
     
     return (
         <div>

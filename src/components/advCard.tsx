@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, CardMedia, Chip, type ChipProps, Stack, Typography,} from "@mui/material";
-import type {Advert} from "../../types/advert.ts";
+import type {Advert, AdvertStatus} from "../../types/advert.ts";
 import {useNavigate} from "react-router";
 
 type Props = {
@@ -19,8 +19,9 @@ const AdvCard = ({advert} : Props )=> {
         images,
     } = advert;
 
-    const statusMap: Record<Advert['status'], { label: string; color: ChipProps['color'] }> = {
+    const statusMap: Record<AdvertStatus, { label: string; color: ChipProps['color'] }> = {
         pending: { label: 'На модерации', color: 'warning' },
+        draft: { label: 'Отправлено на доработку', color: 'warning' },
         approved: { label: 'Одобрено', color: 'success' },
         rejected: { label: 'Отклонено', color: 'error' },
     };
