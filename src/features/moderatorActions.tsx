@@ -43,6 +43,8 @@ const ModeratorActions = () => {
             await client.invalidateQueries({
                 queryKey: ['ads:id', id]
             })
+            setComment('')
+            setReason('')
         },
         onError: err => console.error(err.message),
 
@@ -54,6 +56,8 @@ const ModeratorActions = () => {
             await client.invalidateQueries({
                 queryKey: ['ads:id', id]
             })
+            setComment('')
+            setReason('')
         },
         onError: err => console.error(err.message),
     })
@@ -64,6 +68,8 @@ const ModeratorActions = () => {
             await client.invalidateQueries({
                 queryKey: ['ads:id', id]
             })
+            setComment('')
+            setReason('')
         },
         onError: err => console.error(err.message),
     })
