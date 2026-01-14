@@ -1,7 +1,8 @@
-import {CircularProgress, Grid, Typography} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import AdvCard from "../components/advCard.tsx";
-import type {Advert} from "../../types/advert.ts";
+import type {Advert} from "../types/advert.ts";
 import {type FC, memo} from "react";
+import MyCircProgress from "../components/myCircProgress.tsx";
 
 interface AdsResponse {
     ads: Advert[]
@@ -26,7 +27,7 @@ const AdvList: FC<AdvListProps> = memo(({ data, isLoading, error }) => {
     if (isLoading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem', color:'black' }} >
-                <CircularProgress sx = {(localStorage.getItem('mui-mode') ==='light') ? {color:'black'} : {color: 'white'}} />
+                <MyCircProgress/>
             </div>
         );
     }

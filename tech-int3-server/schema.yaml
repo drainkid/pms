@@ -1,11 +1,7 @@
 openapi: 3.0.0
 info:
   title: API для модерации объявлений
-  description: Упрощенная версия системы модерации объявлений платформы Авито
   version: 1.0.0
-  contact:
-    name: Стажерское задание
-    url: https://avito.ru
 
 servers:
   - url: http://localhost:3001/api/v1

@@ -18,7 +18,7 @@ const NavBar = () => {
                         <Typography
                             variant="h6"
                             noWrap
-                            onClick={() => navigate('/')}
+                            onClick={() => navigate('/list')}
                             sx={{
                                 mr: 2,
                                 mb: 3,
@@ -31,13 +31,29 @@ const NavBar = () => {
                                 cursor: 'pointer'
                         }}
                             >
-                                eagle
+                                pms
                         </Typography>
-
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            onClick={() => navigate('/stats')}
+                            sx={{
+                                mr: 2,
+                                mb: 3,
+                                display: { xs: 'none', md: 'flex' },
+                                fontFamily: 'monospace',
+                                fontWeight: 700,
+                                letterSpacing: '.3rem',
+                                color: 'inherit',
+                                textDecoration: 'none',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            stats
+                        </Typography>
                         <Box sx={{ marginLeft: 'auto', mb: 3 }}>
                             <ThemeButton />
                         </Box>
-
                     </Toolbar>
                 </AppBar>
             </Box>

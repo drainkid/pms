@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {
+    Alert,
     Button,
     Dialog,
     DialogActions,
@@ -46,7 +47,7 @@ const ModeratorActions = () => {
             setComment('')
             setReason('')
         },
-        onError: err => console.error(err.message),
+        onError: err => <Alert severity="error">{err.message}</Alert>,
 
     })
 
@@ -59,7 +60,7 @@ const ModeratorActions = () => {
             setComment('')
             setReason('')
         },
-        onError: err => console.error(err.message),
+        onError: err => <Alert severity="error">{err.message}</Alert>,
     })
 
     const {mutate:requestAd} = useMutation({
@@ -71,7 +72,7 @@ const ModeratorActions = () => {
             setComment('')
             setReason('')
         },
-        onError: err => console.error(err.message),
+        onError: err => <Alert severity="error">{err.message}</Alert>,
     })
 
 
@@ -144,7 +145,7 @@ const ModeratorActions = () => {
                                 label="Комментарий"
                                 multiline
                                 minRows={3}
-                                placeholder="Опишите причину отклонения"
+                                placeholder="Опишите причину"
                                 value={comment}
                                 onChange={(e) =>
                                     setComment(e.target.value)

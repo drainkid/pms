@@ -24,6 +24,12 @@ type Reason = {
 }
 
 
+export type StatsQueryParams = {
+    period?: 'today' | 'week' | 'month' | 'custom'
+    startDate?: string
+    endDate?: string
+}
+
 export const fetchAdvertisment = (params: GetAdvertsParams) => api.get('/ads',
     {params})
 
@@ -49,5 +55,26 @@ export const rejectAdv = async (id:string, reason:Reason) => {
 
 export const updateAdv = async (id:string, reason:Reason) => {
     const res = await api.post(`/ads/${id}/request-changes`, reason)
+    return res.data
+}
+
+
+export const getStatsSummary = async (params:StatsQueryParams) => {
+    const res = await api.get('/stats/summary', {params})
+    return res.data
+}
+
+export const getChartAcitvity = async (params:StatsQueryParams) => {
+    const res = await api.get('/stats/chart/activity', {params})
+    return res.data
+}
+
+export const getChartDecisions = async (params:StatsQueryParams) => {
+    const res = await api.get('/stats/chart/decisions', {params})
+    return res.data
+}
+
+export const getChartCategories = async (params:StatsQueryParams) => {
+    const res = await api.get('/stats/chart/categories', {params})
     return res.data
 }

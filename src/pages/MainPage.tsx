@@ -10,21 +10,26 @@ import {useSearchParams} from "react-router";
 
 const MainPage = () => {
 
-    const [search, setSearch] = useState('')
-    const [searchValue, setSearchValue] = useState('')
-    const [page, setPage] = useState(1)
-
     const [searchParams, setSearchParams] = useSearchParams()
+
+    const initialSearch = searchParams.get('search') ?? ''
+    const initialPage = Math.max(1, Number(searchParams.get('page') ?? 1))
+
+    const [search, setSearch] = useState(initialSearch)
+    const [searchValue, setSearchValue] = useState(initialSearch)
+    const [page, setPage] = useState(initialPage)
 
     const filters = useMemo(() => {
         return Object.fromEntries(searchParams)
     }, [searchParams])
 
-
-    const {data, isLoading, error} = useAdverts({page, search: searchValue, ...filters})
+    const {data, isLoading, error} = useAdverts({search: searchValue, ...filters})
 
     const changePage = (_event: ChangeEvent<unknown>, value: number) => {
         setPage(value)
+        const newSearchParams = new URLSearchParams(searchParams)
+        newSearchParams.set('page', String(value))
+        setSearchParams(newSearchParams)
     }
 
     const handleSearch = () => {
@@ -32,6 +37,7 @@ const MainPage = () => {
         setSearchValue(search)
         const newSearchParams = new URLSearchParams(searchParams)
         newSearchParams.set('search', search)
+        newSearchParams.set('page', '1')
         setSearchParams(newSearchParams)
     }
 

@@ -1,73 +1,95 @@
-# React + TypeScript + Vite
+# Система управления объявлениями для модерации
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание задачи
 
-Currently, two official plugins are available:
+Модераторам нужен удобный инструмент для быстрой проверки объявлений, принятия решений и отслеживания своей эффективности.
+Необходимо разработать веб-приложение для модерации объявлений
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+### **Функциональные требования**
+#### **1. Главная страница — Список объявлений (/list)**
+- Отображение списка объявлений в виде карточек
+- Каждая карточка содержит:
+    - Изображение товара (можно использовать placeholder-изображения)
+    - Название объявления
+    - Цена
+    - Категория
+    - Дата создания
+    - Статус (на модерации / одобрено / отклонено)
+    - Индикатор приоритета (обычный / срочный)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Фильтрация и поиск:**
+- Фильтр по статусу (множественный выбор)
+- Фильтр по категории
+- Фильтр по диапазону цен
+- Поиск по названию объявления
+- Сброс всех фильтров
 
-## Expanding the ESLint configuration
+**Сортировка:**
+- По дате создания (новые/старые)
+- По цене (возрастание/убывание)
+- По приоритету
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Пагинация:**
+- По 10 объявлений на страницу
+- Навигация между страницами
+- Отображение общего количества объявлений
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+#### **2. Страница детального просмотра объявления (/item/:id)**
+При клике на карточку открывается детальная страница объявления.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Информация об объявлении:**
+- Галерея изображений (минимум 3 изображения)
+- Полное описание
+- Характеристики товара (в виде таблицы ключ-значение)
+- Информация о продавце:
+    - Имя
+    - Рейтинг
+    - Количество объявлений
+    - Дата регистрации
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**История модерации:**
+- Список всех действий с объявлением
+- Кто проверял (имя модератора)
+- Когда (дата и время)
+- Какое решение принял
+- Комментарий (если был)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**Панель действий модератора:**
+- Кнопка «Одобрить» (зелёная)
+- Кнопка «Отклонить» (красная)
+- Кнопка «Вернуть на доработку» (жёлтая)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**При отклонении:**
+- Обязательное поле для указания причины
+- Быстрые шаблоны причин:
+    - Запрещённый товар
+    - Неверная категория
+    - Некорректное описание
+    - Проблемы с фото
+    - Подозрение на мошенничество
+    - Другое (с полем ввода)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**Навигация:**
+- Кнопка «Назад к списку»
+- Кнопки «Предыдущее» / «Следующее» объявление (для быстрой модерации)
+
+#### **3. Страница статистики модератора (/stats)**
+
+**Общая статистика:**
+- Карточки с метриками:
+    - Всего проверено объявлений (за сегодня/неделю/месяц)
+    - Процент одобренных
+    - Процент отклоненных
+    - Среднее время на проверку одного объявления
+      Графики:
+- График активности по дням за последнюю неделю (столбчатая диаграмма)
+- Круговая диаграмма распределения решений (одобрено/отклонено/на доработку)
+- График по категориям проверенных объявлений
+
+# Использованные технологии
+- React + TS
+- Tanstack Query
+- MUI
+- React Router
+- Axios

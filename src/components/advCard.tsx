@@ -1,5 +1,5 @@
 import {Box, Card, CardContent, CardMedia, Chip, type ChipProps, Stack, Typography,} from "@mui/material";
-import type {Advert, AdvertStatus} from "../../types/advert.ts";
+import type {Advert, AdvertStatus} from "../types/advert.ts";
 import {useNavigate} from "react-router";
 
 type Props = {

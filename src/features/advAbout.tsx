@@ -4,7 +4,6 @@ import {
     CardContent,
     CardMedia,
     Chip,
-    CircularProgress,
     Grid,
     Stack,
     Table,
@@ -13,6 +12,7 @@ import {
     TableRow,
     Typography
 } from "@mui/material";
+import MyCircProgress from "../components/myCircProgress.tsx";
 
 
 interface ModerationHistoryItem {
@@ -50,7 +50,7 @@ const AdvAbout = ({data, isLoading, error}: AdvAboutProps) => {
     if (isLoading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem', color:'black' }} >
-                <CircularProgress sx = {(localStorage.getItem('mui-mode') ==='light') ? {color:'black'} : {color: 'white'}} />
+                <MyCircProgress/>
             </div>
         )
     }

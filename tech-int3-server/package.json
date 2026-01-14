@@ -1,7 +1,7 @@
 {
   "name": "tech-int3-server",
   "version": "1.0.0",
-  "description": "API сервер для стажерского задания по модерации объявлений",
+  "description": "API сервер по модерации объявлений",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,10 +10,9 @@
   "keywords": [
     "express",
     "api",
-    "moderation",
-    "internship"
+    "moderation"
   ],
-  "author": "Internship Task",
+  "author": "nobody",
   "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
