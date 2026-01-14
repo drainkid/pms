@@ -12,16 +12,21 @@ const allowedOrigins = [
 ].filter(Boolean);
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+
+    if (
+        origin.includes('localhost') ||
+        origin.includes('vercel.app')
+    ) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS'))
     }
   },
   credentials: true,
-  optionsSuccessStatus: 200
-};
+}
+
 
 app.use(cors(corsOptions));
 
