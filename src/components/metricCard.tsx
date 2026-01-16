@@ -15,14 +15,12 @@ const MetricCard = ({ value, title, isLoading}: MetricCardProps) => {
                         {/* Заголовок */}
                         <Skeleton
                             variant="text"
-                            width="60%"
                             height={18}
                         />
 
                         {/* Значение */}
                         <Skeleton
                             variant="text"
-                            width="40%"
                             height={36}
                             sx={{ mt: 1 }}
                         />
