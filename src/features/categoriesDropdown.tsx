@@ -1,4 +1,5 @@
 import {type ChangeEvent, type MouseEvent, useState} from 'react';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import {
     Box,
     Button,
@@ -6,6 +7,7 @@ import {
     Divider,
     FormControl,
     FormControlLabel,
+    IconButton,
     InputLabel,
     ListItemText,
     MenuItem,
@@ -99,19 +101,14 @@ export const CategoriesDropdown = () => {
 
     return (
         <>
-            <Button
-                variant="contained"
+            <IconButton
                 onClick={handleOpen}
                 sx={{
-                    textTransform: 'none',
-                    borderRadius: 4,
-                    backgroundColor: '#4da3ff',
-                    '&:hover': { backgroundColor: '#3395ff'},
                     mr:2,
                 }}
             >
-                Все категории
-            </Button>
+                <FilterListIcon />
+            </IconButton>
 
             <Popover
                 open={open}
@@ -119,9 +116,7 @@ export const CategoriesDropdown = () => {
                 onClose={handleClose}
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
                 transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-                PaperProps={{
-                    sx: { p: 3, width: 320, mt: 1 }
-                }}
+                slotProps={{paper: {sx: {p: 3, width: 320, mt: 1}}}}
             >
                 <Typography variant="h6" fontWeight={600} mb={2}>
                     Фильтры

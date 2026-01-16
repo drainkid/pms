@@ -1,4 +1,5 @@
-import {Box, Button, TextField} from '@mui/material';
+import {Box, TextField} from '@mui/material';
+import {CategoriesDropdown} from "../features/categoriesDropdown.tsx";
 
 type SearchBarProps = {
     value: string;
@@ -34,23 +35,7 @@ type SearchBarProps = {
                     paddingLeft: 2,
                 }}
             />
-
-            <Button
-                variant="contained"
-                onClick={onSubmit}
-                sx={{
-                    width: 140,
-                    borderRadius: 0,
-                    fontSize: 15,
-                    textTransform: 'none',
-                    backgroundColor: '#4da3ff',
-                    '&:hover': {
-                        backgroundColor: '#3395ff',
-                    },
-                }}
-            >
-                Найти
-            </Button>
+            <CategoriesDropdown/>
         </Box>
     );
 };

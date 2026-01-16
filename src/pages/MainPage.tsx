@@ -4,7 +4,6 @@ import {type ChangeEvent, useMemo, useState} from "react";
 import AdvList from "../features/advList.tsx";
 import {Box, Pagination, Typography} from "@mui/material";
 import {useAdverts} from "../hooks/useAdverts.tsx";
-import {CategoriesDropdown} from "../features/categoriesDropdown.tsx";
 import {useSearchParams} from "react-router";
 
 
@@ -51,7 +50,6 @@ const MainPage = () => {
                      mt:4,
                      mb:4,
             }}>
-                <CategoriesDropdown/>
                 <SearchBar value={search} onChange={setSearch} onSubmit={handleSearch}/>
             </Box>
 
