@@ -66,28 +66,23 @@ const StatsPage = () => {
                         {isLoading ? (
                             <MyCircProgress/>
                         ) : (
-                            <ActivityChart
-                                title="Активность за заданный период"
-                                data={data?.activity}
-                            />
-                        )}
-                        {isLoading ? (
-                            <MyCircProgress/>
-                        ) : (
-                            <DecisionChart
-                                title="Активность за заданный период"
-                                approved={data?.decisions.approved}
-                                rejected={data?.decisions.rejected}
-                                requestChanges={data?.decisions.requestChanges}
-                            />
-                        )}
-                        {isLoading ? (
-                            <MyCircProgress/>
-                        ) : (
-                            <CategoriesChart
-                                title='Активность за заданный период'
-                                data={data?.categories}
-                            />
+                            <>
+                                <ActivityChart
+                                    title="Активность за заданный период"
+                                    data={data?.activity}
+                                />
+                                <DecisionChart
+                                    title="Активность за заданный период"
+                                    approved={data?.decisions.approved}
+                                    rejected={data?.decisions.rejected}
+                                    requestChanges={data?.decisions.requestChanges}
+                                />
+                                <CategoriesChart
+                                    title='Активность за заданный период'
+                                    data={data?.categories}
+                                />
+
+                            </>
                         )}
                     </Stack>
                 </Stack>

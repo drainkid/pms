@@ -4,23 +4,24 @@ import {useEffect, useState} from "react";
 
 const PeriodFilters = () => {
 
-    const [searchParams,setSearchParams] = useSearchParams()
+    const [,setSearchParams] = useSearchParams()
     const [selectedButton, setSelectedButton] = useState<string | null>(null)
-    const [startDate, setStartDate] = useState<string | null>('')
-    const [endDate, setEndDate] = useState<string | null>('')
+    const [startDate, setStartDate] = useState<string | null>(null)
+    const [endDate, setEndDate] = useState<string | null>(null)
 
     useEffect(() => {
-        if (selectedButton === 'custom' && startDate && endDate) {
-            setSearchParams({
-                period: 'custom',
-                startDate: startDate,
-                endDate: endDate
-            });
+        if (selectedButton === 'custom') {
+            if (startDate && endDate) {
+                setSearchParams({
+                    period: 'custom',
+                    startDate: startDate,
+                    endDate: endDate
+                });
+            }
         } else if (selectedButton) {
-            setSearchParams({ period: selectedButton });
+            setSearchParams({ period: selectedButton })
         }
-
-    }, [selectedButton, startDate, endDate, searchParams, setSearchParams])
+    }, [selectedButton, startDate, endDate, setSearchParams])
 
 
     return (
