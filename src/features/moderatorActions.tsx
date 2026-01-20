@@ -154,7 +154,10 @@ const ModeratorActions = () => {
                 </DialogContent>
 
                 <DialogActions>
-                    <Button onClick={() => setRejectOpen(false)}>
+                    <Button
+                        onClick={() => setRejectOpen(false)}
+                        disabled={!(reason || comment)}
+                    >
                         Отмена
                     </Button>
                     <Button
