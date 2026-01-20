@@ -126,7 +126,12 @@ const ModeratorActions = () => {
                         </Typography>
                         <RadioGroup
                             value={reason}
-                            onChange={(e) => setReason(e.target.value)}
+                            onChange={(e) => {
+                                setReason(e.target.value)
+                                if (e.target.value !== 'Другое') {
+                                    setComment('')
+                                }
+                            }}
                         >
                             {REASONS.map((r) => (
                                 <FormControlLabel
