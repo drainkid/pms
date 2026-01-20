@@ -93,3 +93,13 @@
 - MUI
 - React Router
 - Axios
+
+## Установка и запуск
+
+```bash
+# Установка зависимостей
+npm install
+
+# Запуск
+npm run dev
+```
