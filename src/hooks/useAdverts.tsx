@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
-import {type GetAdvertsParams, getAdvs} from "../api/api.ts";
-import type {Advert, Pagination} from "../types/advert.ts";
+import {getAdvs} from "../api/api.ts";
+import type {Advert, GetAdvertsParams, Pagination} from "../types/advert.ts";
 
 interface ApiResponse {
     ads: Advert[]

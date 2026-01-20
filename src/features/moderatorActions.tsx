@@ -26,8 +26,6 @@ const REASONS = [
     "Другое",
 ];
 
-
-
 const ModeratorActions = () => {
     const [actionType, setActionType] = useState<"reject" | "revision" | null>(null)
     const [rejectOpen, setRejectOpen] = useState(false)
@@ -74,7 +72,6 @@ const ModeratorActions = () => {
         },
         onError: err => <Alert severity="error">{err.message}</Alert>,
     })
-
 
     return (
         <>

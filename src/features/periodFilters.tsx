@@ -29,7 +29,7 @@ const PeriodFilters = () => {
             {/* Период */}
             <Card>
                 <CardContent>
-                    <Stack direction="row" alignItems="center" spacing={2}>
+                    <Stack direction="row" spacing={2} sx = {{alignItems:'center', justifyContent: 'center'}}>
                         <Typography variant="body2" fontWeight={300}>
                             Период:
                         </Typography>

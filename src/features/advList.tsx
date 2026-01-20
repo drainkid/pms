@@ -29,7 +29,7 @@ const AdvList: FC<AdvListProps> = memo(({ data, isLoading, error }) => {
             <div style={{ display: 'flex', justifyContent: 'center', padding: '2rem', color:'black' }} >
                 <MyCircProgress/>
             </div>
-        );
+        )
     }
 
     if (error) {
@@ -39,14 +39,15 @@ const AdvList: FC<AdvListProps> = memo(({ data, isLoading, error }) => {
                     Произошла ошибка при загрузке объявлений. Пожалуйста, попробуйте позже.
                 </Typography>
             </div>
-        );
+        )
     }
+
 
     return (
         <>
-            <Grid container spacing={2}
-                  m={3}
-                  sx = {{justifyContent: 'center'}}
+            {(data?.ads.length) ? (<Grid container spacing={2}
+                           m={3}
+                           sx = {{justifyContent: 'center'}}
             >
                 {data?.ads?.map((elem) => (
                     <AdvCard
@@ -54,7 +55,11 @@ const AdvList: FC<AdvListProps> = memo(({ data, isLoading, error }) => {
                         key = {elem.id}
                     />
                 ))}
-            </Grid>
+            </Grid>)
+            : (<Typography variant={"h6"} textAlign={'center'}>
+                        По вашему запросу ничего не найдено:(
+            </Typography>
+                )}
         </>
     )
 })

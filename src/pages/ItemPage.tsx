@@ -25,7 +25,6 @@ const ItemPage = () => {
     const nextAdId = id ? getNextAdId(id) : null
     const prevAdId = id ? getPrevAdId(id) : null
 
-    console.log(data)
 
     return (
         <>
@@ -38,6 +37,7 @@ const ItemPage = () => {
                         variant="outlined"
                         startIcon={<ArrowBackIcon />}
                         onClick={() => navigate(-1)}
+                        size={'small'}
                     >
                         Назад к списку
                     </Button>
@@ -49,6 +49,7 @@ const ItemPage = () => {
                         startIcon={<NavigateBeforeIcon />}
                         disabled={!prevAdId}
                         onClick={() => prevAdId && navigate(`/list/item/${prevAdId}`, { replace: true })}
+                        size={'small'}
                     >
                         Предыдущее
                     </Button>
@@ -57,6 +58,7 @@ const ItemPage = () => {
                         variant="outlined"
                         endIcon={<NavigateNextIcon />}
                         disabled={!nextAdId}
+                        size={'small'}
                         onClick={() => nextAdId && navigate(`/list/item/${nextAdId}`, { replace: true })}
                     >
                         Следующее

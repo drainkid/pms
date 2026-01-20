@@ -51,7 +51,7 @@ export const CategoriesDropdown = () => {
 
     const handleClose = () => {
         setAnchorEl(null)
-    };
+    }
 
     const handleApplyFilters = () => {
         const params: Record<string, string> = {}
@@ -95,8 +95,8 @@ export const CategoriesDropdown = () => {
 
     const handleSortChange = (e: ChangeEvent<HTMLInputElement>) => {
         const [field, order] = e.target.value.split(':')
-        setSortBy(field);
-        setSortOrder(order as 'asc' | 'desc');
+        setSortBy(field)
+        setSortOrder(() => order ? order as 'asc' | 'desc' : '');
     }
 
     return (
@@ -218,6 +218,11 @@ export const CategoriesDropdown = () => {
                                 value="price:desc"
                                 control={<Radio size="small" />}
                                 label="Дороже"
+                            />
+                            <FormControlLabel
+                                value="priority:desc"
+                                control={<Radio size="small" />}
+                                label="Приоритетные"
                             />
                         </RadioGroup>
                     </Box>

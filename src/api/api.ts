@@ -1,21 +1,10 @@
 import axios from 'axios'
+import type {GetAdvertsParams, StatsQueryParams} from "../types/advert.ts";
 
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL + 'api/v1' || "http://localhost:3001/api/v1",
+    baseURL:  "http://localhost:3001/api/v1",
 })
-
-export type GetAdvertsParams = {
-    page?: number
-    limit?: number
-    search?: string
-    status?: string | null
-    categoryId?: string | null
-    minPrice?: number
-    maxPrice?: number
-    sortBy?: 'createdAt' | 'price' | 'priority'
-    sortOrder?: 'desc' | 'asc'
-};
 
 
 type Reason = {
@@ -23,12 +12,6 @@ type Reason = {
     comment?: string
 }
 
-
-export type StatsQueryParams = {
-    period?: 'today' | 'week' | 'month' | 'custom'
-    startDate?: string
-    endDate?: string
-}
 
 export const fetchAdvertisment = (params: GetAdvertsParams) => api.get('/ads',
     {params})

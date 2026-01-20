@@ -19,3 +19,22 @@ export interface Pagination {
     totalItems:number,
     totalPages: number
 }
+
+export type GetAdvertsParams = {
+    page?: number
+    limit?: number
+    search?: string
+    status?: string | null
+    categoryId?: string | null
+    minPrice?: number
+    maxPrice?: number
+    sortBy?: 'createdAt' | 'price' | 'priority'
+    sortOrder?: 'desc' | 'asc'
+}
+
+
+export type StatsQueryParams = {
+    period?: 'today' | 'week' | 'month' | 'custom'
+    startDate?: string
+    endDate?: string
+}
