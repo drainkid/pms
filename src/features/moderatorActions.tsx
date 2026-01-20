@@ -156,13 +156,13 @@ const ModeratorActions = () => {
                 <DialogActions>
                     <Button
                         onClick={() => setRejectOpen(false)}
-                        disabled={!(reason || comment)}
                     >
                         Отмена
                     </Button>
                     <Button
                         variant="contained"
                         color="error"
+                        disabled={!(reason || comment)}
                         onClick={() => {
                             if (actionType === "reject") {
                                 rejectAd()
