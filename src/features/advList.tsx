@@ -45,7 +45,7 @@ const AdvList: FC<AdvListProps> = memo(({ data, isLoading, error }) => {
 
     return (
         <>
-            {(data?.ads.length) ? (<Grid container spacing={2}
+            {(data?.ads?.length) ? (<Grid container spacing={2}
                            m={3}
                            sx = {{justifyContent: 'center'}}
             >

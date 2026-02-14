@@ -13,6 +13,19 @@ const ItemPage = () => {
     const { id } = useParams<{ id: string }>()
     const { data, isLoading, error } = useAdvertsById(id)
 
+
+
+    if (!id) {
+        return (
+            <>
+                <NavBar />
+                <Box sx={{ p:2, maxWidth:1200, mx: 'auto' }}>
+                    Объявление не существует! </Box>
+            </>
+        )
+    }
+
+
     const getNextAdId = (currentId: string) => {
         return String(Number(currentId) + 1)
     }

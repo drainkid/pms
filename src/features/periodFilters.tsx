@@ -11,7 +11,7 @@ const PeriodFilters = () => {
 
     useEffect(() => {
         if (selectedButton === 'custom') {
-            if (startDate && endDate) {
+            if ((startDate && endDate) && (new Date(startDate) <= new Date(endDate))) {
                 setSearchParams({
                     period: 'custom',
                     startDate: startDate,

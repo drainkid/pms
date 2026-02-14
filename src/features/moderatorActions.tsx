@@ -31,12 +31,12 @@ const ModeratorActions = () => {
     const [rejectOpen, setRejectOpen] = useState(false)
     const [reason, setReason] = useState("")
     const [comment, setComment] = useState("")
-
+    const [error, setError] = useState<string | null>(null)
 
     const client = useQueryClient()
     const {id} = useParams()
 
-    const {mutate:approveAd} = useMutation({
+    const {mutate:approveAd, isPending: isApproving} = useMutation({
         mutationFn: () => approveAdv(id ?? ''),
         onSuccess: async () => {
             await client.invalidateQueries({
@@ -44,12 +44,14 @@ const ModeratorActions = () => {
             })
             setComment('')
             setReason('')
+            setError(null)
         },
-        onError: err => <Alert severity="error">{err.message}</Alert>,
-
+        onError: (err) => {
+            setError(err?.message || 'Произошла ошибка при одобрении')
+        },
     })
 
-    const {mutate:rejectAd} = useMutation({
+    const {mutate:rejectAd, isPending: isRejecting} = useMutation({
         mutationFn: () => rejectAdv(id ?? '', {reason, comment}),
         onSuccess: async () => {
             await client.invalidateQueries({
@@ -57,11 +59,14 @@ const ModeratorActions = () => {
             })
             setComment('')
             setReason('')
+            setError(null)
         },
-        onError: err => <Alert severity="error">{err.message}</Alert>,
+        onError: (err) => {
+            setError(err?.message || 'Произошла ошибка при отклонении')
+        },
     })
 
-    const {mutate:requestAd} = useMutation({
+    const {mutate:requestAd, isPending: isRequesting} = useMutation({
         mutationFn: () => updateAdv(id ?? '', {reason, comment}),
         onSuccess: async () => {
             await client.invalidateQueries({
@@ -69,17 +74,33 @@ const ModeratorActions = () => {
             })
             setComment('')
             setReason('')
+            setError(null)
         },
-        onError: err => <Alert severity="error">{err.message}</Alert>,
+        onError: (err) => {
+            setError(err?.message || 'Произошла ошибка при отправке на доработку')
+        },
     })
+
+    const isSendDisabled = !reason || (reason === "Другое" && !comment.trim())
+    const isLoading = isApproving || isRejecting || isRequesting
 
     return (
         <>
+            {error && (
+                <Alert severity="error" onClose={() => setError(null)} sx={{ mb: 2 }}>
+                    {error}
+                </Alert>
+            )}
+
             {/* Кнопки модерации */}
             <Stack direction="row" spacing={2} justifyContent="center">
                 <Button variant="contained"
                         color="success"
-                        onClick={() => approveAd()}
+                        onClick={() => {
+                            setError(null)
+                            approveAd()
+                        }}
+                        disabled={isLoading}
                 >
                     Одобрить
                 </Button>
@@ -88,9 +109,11 @@ const ModeratorActions = () => {
                     variant="contained"
                     color="error"
                     onClick={() => {
+                        setError(null)
                         setRejectOpen(true)
                         setActionType("reject")
                     }}
+                    disabled={isLoading}
                 >
                     Отклонить
                 </Button>
@@ -98,9 +121,11 @@ const ModeratorActions = () => {
                 <Button variant="contained"
                         color="warning"
                         onClick={() => {
+                            setError(null)
                             setActionType("revision")
                             setRejectOpen(true)
                         }}
+                        disabled={isLoading}
                 >
                     На доработку
                 </Button>
@@ -161,13 +186,14 @@ const ModeratorActions = () => {
                 <DialogActions>
                     <Button
                         onClick={() => setRejectOpen(false)}
+                        disabled={isRejecting || isRequesting}
                     >
                         Отмена
                     </Button>
                     <Button
                         variant="contained"
                         color="error"
-                        disabled={!(reason || comment)}
+                        disabled={isSendDisabled || isRejecting || isRequesting}
                         onClick={() => {
                             if (actionType === "reject") {
                                 rejectAd()

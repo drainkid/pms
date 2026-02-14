@@ -1,5 +1,5 @@
 import NavBar from "../components/navBar.tsx";
-import {Box, Grid, Stack, Typography} from "@mui/material";
+import {Alert, Box, Grid, Stack, Typography} from "@mui/material";
 import {useStats} from "../hooks/useStats.tsx";
 import MetricCard from "../components/metricCard.tsx";
 import PeriodFilters from "../features/periodFilters.tsx";
@@ -18,16 +18,21 @@ const StatsPage = () => {
     const startDate = searchParams.get('startDate') || undefined
     const endDate = searchParams.get('endDate') || undefined
 
-    const {data, isLoading} = useStats(
+    const {data, isLoading, error} = useStats(
         {period: period as 'today' | 'week' | 'month' | 'custom' | undefined,
         startDate,
         endDate
         })
 
 
-
     return (
         <>
+            {error && (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                    {error.message}
+                </Alert>
+            )}
+
             <NavBar/>
             <Box sx={{ maxWidth: 1100, mx: "auto", p: 4 }}>
                 <Stack spacing={3}>
@@ -46,12 +51,12 @@ const StatsPage = () => {
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
                             <MetricCard title="Одобрено"
-                                        value={data?.summary.approvedPercentage + '%'}
+                                        value={data?.summary.approvedPercentage != null ? `${data.summary.approvedPercentage}%` : undefined}
                                         isLoading = {isLoading} />
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
                             <MetricCard title="Отклонено"
-                                        value= {data?.summary.rejectedPercentage + '%'}
+                                        value= {data?.summary.rejectedPercentage != null ? `${data.summary.rejectedPercentage}%` : undefined}
                                         isLoading = {isLoading}/>
                         </Grid>
                         <Grid size={{ xs: 12, sm: 6 }}>
@@ -65,21 +70,21 @@ const StatsPage = () => {
                     <Stack spacing={3}>
                         {isLoading ? (
                             <MyCircProgress/>
-                        ) : (
+                        ) : error || !data ? null : (
                             <>
                                 <ActivityChart
                                     title="Активность за заданный период"
-                                    data={data?.activity}
+                                    data={data.activity}
                                 />
                                 <DecisionChart
                                     title="Активность за заданный период"
-                                    approved={data?.decisions.approved}
-                                    rejected={data?.decisions.rejected}
-                                    requestChanges={data?.decisions.requestChanges}
+                                    approved={data.decisions.approved}
+                                    rejected={data.decisions.rejected}
+                                    requestChanges={data.decisions.requestChanges}
                                 />
                                 <CategoriesChart
                                     title='Активность за заданный период'
-                                    data={data?.categories}
+                                    data={data.categories}
                                 />
 
                             </>

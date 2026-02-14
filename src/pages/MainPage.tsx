@@ -1,6 +1,6 @@
 import NavBar from "../components/navBar.tsx";
 import SearchBar from "../components/searchBar.tsx";
-import {type ChangeEvent, useMemo, useState} from "react";
+import {type ChangeEvent, useEffect, useMemo, useState} from "react";
 import AdvList from "../features/advList.tsx";
 import {Box, Pagination, Typography} from "@mui/material";
 import {useAdverts} from "../hooks/useAdverts.tsx";
@@ -18,11 +18,19 @@ const MainPage = () => {
     const [searchValue, setSearchValue] = useState(initialSearch)
     const [page, setPage] = useState(initialPage)
 
+    useEffect(() => {
+        const nextSearch = searchParams.get('search') ?? ''
+        const nextPage = Math.max(1, Number(searchParams.get('page') ?? 1))
+        setSearch(nextSearch)
+        setSearchValue(nextSearch)
+        setPage(nextPage)
+    }, [searchParams])
+
     const filters = useMemo(() => {
         return Object.fromEntries(searchParams)
     }, [searchParams])
 
-    const {data, isLoading, error} = useAdverts({search: searchValue, ...filters})
+    const {data, isLoading, error} = useAdverts({search: searchValue, page, ...filters})
 
     const changePage = (_event: ChangeEvent<unknown>, value: number) => {
         setPage(value)
@@ -67,7 +75,7 @@ const MainPage = () => {
                      alignContent: 'center',
                      mt:4,
                      mb:4}}>
-                <Pagination count = {data?.pagination?.totalPages} page={page} onChange={changePage}/>
+                <Pagination count = {data?.pagination?.totalPages ?? 1} page={page} onChange={changePage}/>
                 <Typography variant="body1" fontWeight={100}> Всего объявлений: {data?.pagination?.totalItems} </Typography>
             </Box>
         </>
