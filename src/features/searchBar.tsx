@@ -1,5 +1,5 @@
 import {Box, TextField} from '@mui/material';
-import {CategoriesDropdown} from "../features/categoriesDropdown.tsx";
+import {CategoriesDropdown} from "../components/categoriesDropdown.tsx";
 
 type SearchBarProps = {
     value: string;

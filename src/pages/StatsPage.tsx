@@ -4,10 +4,10 @@ import {useStats} from "../hooks/useStats.tsx";
 import MetricCard from "../components/metricCard.tsx";
 import PeriodFilters from "../features/periodFilters.tsx";
 import {useSearchParams} from "react-router";
-import ActivityChart from "../features/activityChart.tsx";
+import ActivityChart from "../components/activityChart.tsx";
 import MyCircProgress from "../components/myCircProgress.tsx";
-import DecisionChart from "../features/decisionChart.tsx";
-import CategoriesChart from "../features/categoriesChart.tsx";
+import DecisionChart from "../components/decisionChart.tsx";
+import CategoriesChart from "../components/categoriesChart.tsx";
 
 
 const StatsPage = () => {
@@ -32,16 +32,20 @@ const StatsPage = () => {
                     {error.message}
                 </Alert>
             )}
-
+            
             <NavBar/>
+
             <Box sx={{ maxWidth: 1100, mx: "auto", p: 4 }}>
                 <Stack spacing={3}>
+
                     {/* Заголовок */}
                     <Typography variant="h5" fontWeight={600}>
                         Статистика
                     </Typography>
+
                     {/* Период */}
                     <PeriodFilters/>
+
                     {/* Метрики */}
                     <Grid container spacing={2}>
                         <Grid size={{ xs: 12, sm: 6 }}>

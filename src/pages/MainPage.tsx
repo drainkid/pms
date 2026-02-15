@@ -1,5 +1,5 @@
 import NavBar from "../components/navBar.tsx";
-import SearchBar from "../components/searchBar.tsx";
+import SearchBar from "../features/searchBar.tsx";
 import {type ChangeEvent, useEffect, useMemo, useState} from "react";
 import AdvList from "../features/advList.tsx";
 import {Box, Pagination, Typography} from "@mui/material";
